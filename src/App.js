@@ -1,23 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header'
+import Regions from './components/Regions'
+import React, { useState } from "react";
+import PokemonList from './components/PokemonList';
+
+
 
 function App() {
+  
+  //STATE FOR DARK MODE
+  const [isDarkMode, setIsDarkMode] = useState(false)
+  const [region, setPokemonRegion] = useState('Kanto')
+  const [isLoading, setIsLoading] = useState(true)
+
+  function toggleDarkMode() {
+    setIsDarkMode(!isDarkMode);
+  }
+  function changePokemonRegion(newRegion) {
+    setPokemonRegion(newRegion)
+    console.log(`New Region: ${newRegion}`)
+  }
+  function changeLoading(value){
+    setIsLoading(value)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {!isLoading && <Header darkMode={isDarkMode} toggleDark={toggleDarkMode} loading={isLoading} />}
+      {/* {<Regions changeRegion={changePokemonRegion} />} */}
+      {<PokemonList currentRegion={region} changeLoadState={changeLoading} loading={isLoading}/>}
     </div>
   );
 }

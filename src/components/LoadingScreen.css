@@ -1,0 +1,17 @@
+.Loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 15px;
+
+
+    position: fixed; /* position the div fixed on the screen */
+    top: 0; /* align the top of the div with the top of the screen */
+    right: 0; /* align the right side of the div with the right side of the screen */
+    bottom: 0; /* align the bottom of the div with the bottom of the screen */
+    left: 0; /* align the left side of the div with the left side of the screen */
+    width: 100%; /* make the width of the div 100% of the screen width */
+    height: 100%; /* make the height of the div 100% of the screen height */
+}
+

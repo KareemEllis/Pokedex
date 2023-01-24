@@ -1,0 +1,72 @@
+.scene {
+    width: 230px;
+    height: 320px;
+    border-radius: 15px;
+    margin: 10px;
+    perspective: 600px;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;
+}
+.card:hover {
+    transform: scale(1.025);
+}
+
+.card.is-flipped {
+    transform: rotateY(-180deg);
+}
+
+.card__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.card__face--front {
+}
+
+.card__face--back {
+    transform: rotateY(-180deg);
+}
+
+.card h1{
+    margin: 0;
+    font-size: 19px;
+}
+.card h2{
+    margin: 0;
+}
+.card h3{
+    margin: 0;
+    font-size: 15px;
+}
+.card h4{
+    margin: 0;
+    font-size: 12px;
+}
+.card p{
+    margin: 0;
+}
+.card ul{
+    margin: 0;
+}
+
+.card .types img{
+    width: 40px;
+    margin: 0 8px;
+}
+.card .pokemon-img{
+    height: 100px;
+    width: 75%;
+}

@@ -1,0 +1,20 @@
+.Regions{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.Regions input{
+    width: 250px;
+    margin: 15px;
+
+    transition: 0.2s;
+}
+.Regions input:hover{
+    transform: scale(1.1);
+
+    -webkit-filter: drop-shadow(0px 5px 2px #222);
+    filter:         drop-shadow(0px 5px 2px #222);
+}
+

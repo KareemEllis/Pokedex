@@ -1,0 +1,53 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    padding: 20px;
+}
+
+header .logo{
+    width: 280px;
+}
+
+header .links img{
+    width: 20px;
+    margin-left: 15px;
+}
+
+/* CODE FOR DARK MODE TOGGLE */
+header .dark-mode-toggle {
+    width: 70px;
+    height: 25px;
+    border-radius: 25px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+header .dark-mode-toggle.light {
+    background-color: #c5c5c5;
+}
+
+header .dark-mode-toggle.dark {
+    background-color: #333;
+}
+
+header .toggle-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute;
+    top: 2.5px;
+    left: 2.5px;
+    transition: transform 0.3s ease;
+    background-color: #fff;
+}
+
+header .dark-mode-toggle.light .toggle-btn {
+    transform: translateX(0);
+}
+
+header .dark-mode-toggle.dark .toggle-btn {
+    transform: translateX(44px);
+}
