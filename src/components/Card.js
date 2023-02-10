@@ -3,7 +3,25 @@ import './Card.css'
 
 
 function PokemonList(props) {
-    const [pokeData, setPokeData] = useState(props.pokemonData)
+    const [pokeData, setPokeData] = useState({
+        id: "",
+        name: "",
+        sprites: {
+            other: {
+                dream_world: {
+                    front_default: ""
+                }
+            }
+        },
+        abilities: [
+            {
+                ability: {
+                    name: ""
+                }
+            }
+        ]
+    })
+    const [isImageLoading, setIsImageLoading] = useState(true)
     const [typeIcons, setTypeIcons] = useState([])
     const [bgColors, setBgColors] = useState(['grey', 'grey'])
     const typeColors = {
@@ -37,12 +55,17 @@ function PokemonList(props) {
     const images = importAll(require.context('../images/Type_icons', false, /\.(png|jpe?g|svg)$/));
     //EXAMPLE OF HOW TO USE THE IMAGES: <img src={images['doggy.png']} />
 
+    //Fetches for Pokemon data and sets it to state
     async function getPokemonData() {
         try {
+            const response = await fetch(props.url)
+            const data = await response.json()
+            await setPokeData(data)
+
             let icons = []
             let colors = []
-            pokeData.types.forEach(item => {
-                if(pokeData.types.length == 1){
+            data.types.forEach(item => {
+                if(data.types.length == 1){
                     //If there is only one type, this adds the color twice so the gradient still works
                     colors.push(typeColors[item.type.name])
                     colors.push(typeColors[item.type.name])
@@ -62,9 +85,21 @@ function PokemonList(props) {
         }
     }
 
+    function handleLoad(){
+        setIsImageLoading(false);
+        props.incrementLoadCount()
+    }
+
+    useEffect(() => {
+        const image = new Image();
+        image.src = pokeData.sprites.other.dream_world.front_default;
+        image.onload = () => handleLoad()
+      }, [pokeData.sprites.other.dream_world.front_default]);
+
     useEffect(() => {
         getPokemonData()
     }, [])
+
 
     //Fucntion to handle the flipping of the card component
     function flip(){
@@ -75,20 +110,22 @@ function PokemonList(props) {
             props.handleFlip(props.id)
         }
     }
-    
+
+    //console.log(pokeData.abilities)
+
     const backgroundStyles= {
         background: `linear-gradient(${bgColors.join(',')})`
     }
 
     return (
         <div className="scene scene--card" onClick={() => flip()}>
-            <div className={`card ${props.id === props.flippedCard ? 'is-flipped' : ''}`} >
+            {!props.loading ? 
+            (<div className={`card ${props.id === props.flippedCard ? 'is-flipped' : ''}`} >
                 <div className="card__face card__face--front" style={backgroundStyles} >
                     <h3> #{pokeData.id}</h3>
                     <img className='pokemon-img' src={pokeData.sprites.other.dream_world.front_default} alt={`Picture of ${pokeData.name}`} />
                     <h1>{pokeData.name}</h1>
                     <div className='types'>{typeIcons}</div>
-                    <h4>More Info</h4>
                 </div>
                 <div className="card__face card__face--back" style={backgroundStyles} >
                     <h1>{pokeData.name}</h1>
@@ -103,7 +140,8 @@ function PokemonList(props) {
                     <h2>Weight</h2>
                     <p>{pokeData.weight}</p>
                 </div>
-            </div>
+            </div>)
+            : ""}
         </div>
     );
   }

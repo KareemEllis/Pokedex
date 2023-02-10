@@ -6,8 +6,8 @@ import LoadingScreen from '../components/LoadingScreen';
 function PokemonList(props) {
     
   const [pokemon, setPokemon] = useState([])
-  const [cards, setCards] = useState([])
   const [currentFlipped, setCurrentFlipped] = useState()
+  const [numLoaded, setNumLoading] = useState(0)
 
   function changeFlipped(name){
     setCurrentFlipped(name)
@@ -38,38 +38,38 @@ function PokemonList(props) {
     else if(props.currentRegion === 'Galar'){
 
     }
-
   }
 
+  function increaseNumLoaded(){
+    setNumLoading(prev => prev + 1)
+  }
   async function getData(){
+    setNumLoading(0)
     await props.changeLoadState(true)
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon?${getUrlFilters()}`)
     const data = await response.json()
     await setPokemon(data.results)
-
-    let cardElements = []
-
-    await data.results.forEach(async pokemon => {
-      const response_2 = await fetch(pokemon.url)
-      const pokeData = await response_2.json()
-      await cardElements.push(<Card key={pokemon.name} pokemonData={pokeData} flippedCard={currentFlipped} handleFlip={changeFlipped} />)
-    });
-
-    //console.log(cardElements)
-    await setCards(cardElements)
-    props.changeLoadState(false)
-
+    
   }
 
   useEffect(() => {
     getData()
   }, [props.currentRegion])
 
+  useEffect(() => {
+    if(pokemon.length != 0 && numLoaded >= pokemon.length){
+      props.changeLoadState(false)
+    }
+  }, [numLoaded])
+
+  const pokemonCards = pokemon.map(poke => {
+    return <Card key={poke.name} id={poke.name} url={poke.url} flippedCard={currentFlipped} handleFlip={changeFlipped} incrementLoadCount={increaseNumLoaded} loading={props.loading}/>
+  })
 
   return (
     <div className='PokemonList container'>
-      {props.loading ? <LoadingScreen /> : cards}
-      {console.log(cards)}
+      {props.loading ? <LoadingScreen /> : ""}
+      {pokemonCards}
     </div>
   );
 }
