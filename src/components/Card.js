@@ -3,24 +3,7 @@ import './Card.css'
 
 
 function PokemonList(props) {
-    const [pokeData, setPokeData] = useState({
-        id: "",
-        name: "",
-        sprites: {
-            other: {
-                dream_world: {
-                    front_default: ""
-                }
-            }
-        },
-        abilities: [
-            {
-                ability: {
-                    name: ""
-                }
-            }
-        ]
-    })
+    const [pokeData, setPokeData] = useState(props.pokemonData)
     const [typeIcons, setTypeIcons] = useState([])
     const [bgColors, setBgColors] = useState(['grey', 'grey'])
     const typeColors = {
@@ -54,17 +37,12 @@ function PokemonList(props) {
     const images = importAll(require.context('../images/Type_icons', false, /\.(png|jpe?g|svg)$/));
     //EXAMPLE OF HOW TO USE THE IMAGES: <img src={images['doggy.png']} />
 
-    //Fetches for Pokemon data and sets it to state
     async function getPokemonData() {
         try {
-            const response = await fetch(props.url)
-            const data = await response.json()
-            await setPokeData(data)
-            
             let icons = []
             let colors = []
-            data.types.forEach(item => {
-                if(data.types.length == 1){
+            pokeData.types.forEach(item => {
+                if(pokeData.types.length == 1){
                     //If there is only one type, this adds the color twice so the gradient still works
                     colors.push(typeColors[item.type.name])
                     colors.push(typeColors[item.type.name])
@@ -84,7 +62,6 @@ function PokemonList(props) {
         }
     }
 
-    
     useEffect(() => {
         getPokemonData()
     }, [])
@@ -98,8 +75,6 @@ function PokemonList(props) {
             props.handleFlip(props.id)
         }
     }
-
-    //console.log(pokeData.abilities)
     
     const backgroundStyles= {
         background: `linear-gradient(${bgColors.join(',')})`
