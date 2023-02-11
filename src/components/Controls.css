@@ -1,0 +1,21 @@
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.box {
+    margin: 10px 15px;
+    width: 150px;
+}
+
+.controls h2{
+    font-size: 15px;
+    margin: 0;
+}
+
+.controls select, input{
+    width: 100%;
+}

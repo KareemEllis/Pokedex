@@ -25,24 +25,24 @@ function PokemonList(props) {
     const [typeIcons, setTypeIcons] = useState([])
     const [bgColors, setBgColors] = useState(['grey', 'grey'])
     const typeColors = {
-        bug: "#C6D16E",
+        bug: "#d9e290",
         dark: "#A29288",
-        dragon: "#A27DFA",
-        electric: "#FAE078",
+        dragon: "#b392ff",
+        electric: "#ffeda4", 
         fairy: "#F4BDC9",
-        fighting: "#D67873",
-        fire: "#F5AC78",
-        flying: "#C6B7F5",
+        fighting: "#ff9f9a", 
+        fire: "#ffc195", 
+        flying: "#dacdff",
         ghost: "#A292BC",
-        grass: "#A7DB8D",
-        ground: "#EBD69D",
-        ice: "#BCE6E6",
-        normal: "#C6C6A7",
-        poison: "#C183C1",
-        psychic: "#FA92B2",
-        rock: "#D1C17D",
+        grass: "#c0ffa1", 
+        ground: "#ffe499", 
+        ice: "#a5ffff", 
+        normal: "#C6C6A7", 
+        poison: "#ff98ff", 
+        psychic: "#ffabc4",
+        rock: "#e0d294",
         steel: "#D1D1E0",
-        water: "#9DB7F5"
+        water: "#8bc7ff"
     }
 
     //Function to import images from a directory
