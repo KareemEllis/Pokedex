@@ -9,13 +9,13 @@ import PokemonList from './components/PokemonList';
 function App() {
   
   //STATE FOR DARK MODE
-  const [isDarkMode, setIsDarkMode] = useState(false)
   const [region, setPokemonRegion] = useState('Kanto')
+  const [searchText, setSearchText] = useState("")
+  const [sort, setSort] = useState("ID")
+  const [type, setType] = useState("")
+
   const [isLoading, setIsLoading] = useState(true)
 
-  function toggleDarkMode() {
-    setIsDarkMode(!isDarkMode);
-  }
   function changePokemonRegion(newRegion) {
     setPokemonRegion(newRegion)
     console.log(`New Region: ${newRegion}`)
@@ -26,8 +26,14 @@ function App() {
 
   return (
     <div className="App">
-      {!isLoading && <Header darkMode={isDarkMode} toggleDark={toggleDarkMode} />}
-      {!isLoading && <Controls darkMode={isDarkMode} />}
+      {!isLoading && <Header />}
+      {!isLoading && <Controls 
+                        changeSearch={setSearchText} 
+                        changeRegion={setPokemonRegion} 
+                        changeSort={setSort} 
+                        changeType={setType} 
+                      />
+      }
       {<PokemonList currentRegion={region} changeLoadState={changeLoading} loading={isLoading}/>}
     </div>
   );

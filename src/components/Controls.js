@@ -1,13 +1,27 @@
 import './Controls.css';
 import React, { useState } from "react";
 
-function Controls() {
+function Controls(props) {
+
+    function handleSearch(event){
+        props.changeSearch(event.target.value)
+    }
+    function handleRegion(event){
+        console.log(event.target.value)
+        props.changeRegion(event.target.value)
+    }
+    function handleSort(event){
+        props.changeSort(event.target.value)
+    }
+    function handleType(event){
+        props.changeType(event.target.value)
+    }
 
     return (
         <div className='controls'>
             <div className='box'>
                 <h2>Region</h2>
-                <select name="regions" id="regions">
+                <select name="regions" id="regions" onChange={handleRegion}>
                     <option value="Kanto">Kanto</option>
                     <option value="Johto">Johto</option>
                     <option value="Hoenn">Hoenn</option>
@@ -20,7 +34,8 @@ function Controls() {
             </div>
             <div className='box'>
                 <h2>Type</h2>
-                <select name="type" id="type">
+                <select name="type" id="type" onChange={handleType}>
+                    <option value="Bug">All Types</option>
                     <option value="Bug">Bug</option>
                     <option value="Dark">Dark</option>
                     <option value="Dragon">Dragon</option>
@@ -43,14 +58,18 @@ function Controls() {
             </div>
             <div className='box'>
                 <h2>Sort By</h2>
-                <select name="sort" id="sort">
+                <select name="sort" id="sort" onChange={handleSort}>
                     <option value="ID">ID</option>
                     <option value="Name">Name</option>
                 </select>
             </div>
             <div className='box'>
                 <h2>Search</h2>
-                <input></input>
+                <input 
+                    type="text"
+                    placeholder="Pikachu"
+                    onChange={handleSearch}
+                />
             </div>
         </div>
     )

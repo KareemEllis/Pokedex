@@ -37,7 +37,7 @@ function PokemonList(props) {
         grass: "#c0ffa1", 
         ground: "#ffe499", 
         ice: "#a5ffff", 
-        normal: "#C6C6A7", 
+        normal: "#bfbfbf", 
         poison: "#ff98ff", 
         psychic: "#ffabc4",
         rock: "#e0d294",

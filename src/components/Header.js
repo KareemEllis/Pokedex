@@ -8,11 +8,7 @@ function Header(props) {
   return (
     <header className='container'>
 
-      {/* THIS IS THE TOGGLE DARK MODE CONTROLS */}
-      <div className={`dark-mode-toggle ${props.darkMode ? 'dark' : 'light'}`} onClick={props.toggleDark}>
-          <div className="toggle-btn"></div>
-      </div>
-
+      <div></div>
 
       <img className='logo' src={logo_pokemon} alt='Pokemon Logo'/>
       
