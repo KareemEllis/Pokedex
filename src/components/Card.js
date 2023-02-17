@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './Card.css'
 
 
@@ -62,7 +64,7 @@ function PokemonList(props) {
             }
         ]
     })
-    const [isImageLoading, setIsImageLoading] = useState(true)
+    // const [isImageLoading, setIsImageLoading] = useState(true)
     const [typeIcons, setTypeIcons] = useState([])
     const [bgColors, setBgColors] = useState(['grey', 'grey'])
     const typeColors = {
@@ -94,7 +96,7 @@ function PokemonList(props) {
     }
     //Stores the images from the directory based on the path
     const images = importAll(require.context('../images/Type_icons', false, /\.(png|jpe?g|svg)$/));
-    //EXAMPLE OF HOW TO USE THE IMAGES: <img src={images['doggy.png']} />
+    //EXAMPLE: <img src={images['doggy.png']} />
 
     //Fetches for Pokemon data and sets it to state
     async function getPokemonData() {
@@ -131,31 +133,22 @@ function PokemonList(props) {
         }
     }
 
-    function handleLoad(){
-        setIsImageLoading(false);
-        props.incrementLoadCount()
-    }
 
     useEffect(() => {
-        const image = new Image();
-        
-        let source = "" 
+        if(!props.loadedImages.includes(pokeData.name) && pokeData.name != ""){
+            props.incrementLoadCount()
+            props.setLoadedImages(prevArr => [...prevArr, pokeData.name])
+        }
+    }, [pokeData])
 
-        if(pokeData.sprites.other.dream_world.front_default != null){
-            source = pokeData.sprites.other.dream_world.front_default;
-        }
-        else{
-            source = pokeData.sprites.other["official-artwork"].front_default
-        }
-        image.src = source
-        
-        image.onload = () => handleLoad()
-    }, [pokeData.sprites.other.dream_world.front_default]);
 
     useEffect(() => {
         getPokemonData()
     }, [])
 
+    const backgroundStyles= {
+        background: `linear-gradient(${bgColors.join(',')})`
+    }
 
     //Fucntion to handle the flipping of the card component
     function flip(){
@@ -167,12 +160,6 @@ function PokemonList(props) {
         }
     }
 
-    //console.log(pokeData.abilities)
-
-    const backgroundStyles= {
-        background: `linear-gradient(${bgColors.join(',')})`
-    }
-
     return (
         <div className="scene scene--card" onClick={() => flip()}>
             {!props.loading ? 
@@ -180,11 +167,14 @@ function PokemonList(props) {
 
                 <div className="card__face card__face--front" style={backgroundStyles} >
                     <h3> #{pokeData.id}</h3>
-                    <img 
-                        className='pokemon-img' 
-                        src={pokeData.sprites.other.dream_world.front_default != null ? pokeData.sprites.other.dream_world.front_default : pokeData.sprites.other["official-artwork"].front_default} 
-                        alt={`Picture of ${pokeData.name}`} 
-                    />
+                    <div className='pokemon-img'>
+                        <LazyLoadImage
+                            height={"110px"}
+                            effect="blur"
+                            alt={`Picture of ${pokeData.name}`}
+                            src={pokeData.sprites.other.dream_world.front_default != null ? pokeData.sprites.other.dream_world.front_default : pokeData.sprites.other["official-artwork"].front_default} // use normal <img> attributes as props
+                        />
+                    </div>
                     <h1>{pokeData.name}</h1>
                     <div className='types'>{typeIcons}</div>
                 </div>
@@ -192,12 +182,6 @@ function PokemonList(props) {
 
                 <div className="card__face card__face--back" style={backgroundStyles} >
                     <h1>{pokeData.name}</h1>
-                    {/* <h2>Abilities</h2>
-                    <ul>
-                    {pokeData.abilities.map(item => {
-                        return <li key={item.ability.name}>{item.ability.name}</li>
-                    })}
-                    </ul> */}
                     <h2>HP: <span>{pokeData.stats[0].base_stat}</span></h2> 
                     <h2>Attack: <span>{pokeData.stats[1].base_stat}</span></h2> 
                     <h2>Defense: <span>{pokeData.stats[2].base_stat}</span></h2> 

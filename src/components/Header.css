@@ -18,3 +18,28 @@ header .links img{
     width: 20px;
     margin-left: 15px;
 }
+
+@media screen and (max-width: 1000px){
+    header{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        padding: 20px;
+    }
+
+    header .links{
+        position: absolute;
+        bottom: 0px;
+        left: 60px; 
+        right: 0; 
+        margin-left: auto; 
+        margin-right: auto; 
+        width: 200px; /* Need a specific value to work */
+    }
+
+    header .links img{
+        width: 20px;
+        margin: 0 20px;
+    }
+}

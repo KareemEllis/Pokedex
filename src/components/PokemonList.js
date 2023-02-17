@@ -8,7 +8,9 @@ function PokemonList(props) {
   const [pokemon, setPokemon] = useState([])
   const [currentFlipped, setCurrentFlipped] = useState()
   const [numLoaded, setNumLoading] = useState(0)
+  const [loadedImages, setLoadedImages] = useState([])
   const [filteredCards, setFilteredCards] = useState([])
+  
 
   function changeFlipped(name){
     setCurrentFlipped(name)
@@ -66,7 +68,16 @@ function PokemonList(props) {
   }, [numLoaded])
 
   const pokemonCards = pokemon.map(poke => {
-    return <Card key={poke.name} id={poke.name} url={poke.url} flippedCard={currentFlipped} handleFlip={changeFlipped} incrementLoadCount={increaseNumLoaded} loading={props.loading}/>
+    return <Card 
+    key={poke.name} 
+    id={poke.name} 
+    url={poke.url} 
+    flippedCard={currentFlipped} 
+    handleFlip={changeFlipped} 
+    incrementLoadCount={increaseNumLoaded} 
+    loading={props.loading} 
+    loadedImages={loadedImages}
+    setLoadedImages={setLoadedImages}/>
   })
 
   //Checking for the search input

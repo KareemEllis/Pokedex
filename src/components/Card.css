@@ -12,10 +12,8 @@
     transition: transform 0.5s;
     transform-style: preserve-3d;
     cursor: pointer;
-    position: relative;
-}
-.card:hover {
-    transform: scale(1.05);
+    position: relative; 
+    
 }
 
 .card.is-flipped {
@@ -31,6 +29,8 @@
     text-align: center;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+
+    filter: drop-shadow(0 5px 5px rgb(137, 137, 137));
 }
 
 .card__face--front {
@@ -132,10 +132,6 @@
     opacity: 1;
   }
 
-
-
 .card .pokemon-img{
-    height: 37%;
-    /* width: 70%; */
     margin: 20px 0;
 }
