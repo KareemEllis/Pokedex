@@ -4,7 +4,7 @@ import React, { useState } from "react";
 function Controls(props) {
 
     function handleSearch(event){
-        props.changeSearch(event.target.value)
+        props.changeSearch(event.target.value.toLowerCase())
     }
     function handleRegion(event){
         console.log(event.target.value)

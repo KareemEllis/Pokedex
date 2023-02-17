@@ -57,6 +57,8 @@ function PokemonList(props) {
   }
 
   useEffect(() => {
+    setLoadedImages([])
+    setFilteredCards([])
     getData()
   }, [props.currentRegion])
 

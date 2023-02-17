@@ -66,7 +66,7 @@ function PokemonList(props) {
     })
     // const [isImageLoading, setIsImageLoading] = useState(true)
     const [typeIcons, setTypeIcons] = useState([])
-    const [bgColors, setBgColors] = useState(['grey', 'grey'])
+    const [bgColors, setBgColors] = useState(['#cfcfcf', '#cfcfcf'])
     const typeColors = {
         bug: "#d9e290",
         dark: "#7d7d7d", //DONE

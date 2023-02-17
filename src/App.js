@@ -11,12 +11,11 @@ function App() {
   //STATE FOR DARK MODE
   const [region, setPokemonRegion] = useState('Kanto')
   const [searchText, setSearchText] = useState("")
-  const [sort, setSort] = useState("ID")
-  const [type, setType] = useState("All")
 
   const [isLoading, setIsLoading] = useState(true)
 
   function changePokemonRegion(newRegion) {
+    setSearchText("")
     setPokemonRegion(newRegion)
     console.log(`New Region: ${newRegion}`)
   }
@@ -29,7 +28,7 @@ function App() {
       {!isLoading && <Header />}
       {!isLoading && <Controls 
                         changeSearch={setSearchText} 
-                        changeRegion={setPokemonRegion}
+                        changeRegion={changePokemonRegion}
                         currentRegion={region}
                       />
       }
