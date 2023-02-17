@@ -3,16 +3,16 @@ header{
     justify-content: center;
     align-items: center;
     position: relative;
-    padding: 20px;
+    padding-top: 30px;
 }
 
 header .logo{
-    width: 350px;
+    width: 300px;
 }
 
 header .links{
     position: absolute;
-    right: 0;
+    right: 50px;
 }
 header .links img{
     width: 20px;
@@ -20,17 +20,9 @@ header .links img{
 }
 
 @media screen and (max-width: 1000px){
-    header{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        padding: 20px;
-    }
-
     header .links{
         position: absolute;
-        bottom: 0px;
+        bottom: -20px;
         left: 60px; 
         right: 0; 
         margin-left: auto; 

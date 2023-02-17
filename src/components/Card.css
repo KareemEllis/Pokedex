@@ -1,6 +1,6 @@
 .scene {
-    width: 270px;
-    height: 380px;
+    width: 220px;
+    height: 340px;
     border-radius: 15px;
     margin: 25px;
     perspective: 600px;
@@ -44,13 +44,13 @@
     transform: rotateY(-180deg);
 }
 .card__face--back p, li{
-    font-family: "Lucida Console", "Courier New", monospace;
+    font-family: 'Montserrat', sans-serif;
     font-size: 20px;
 }
 
 .card h1{
     margin: 0;
-    font-size: 27px;
+    font-size: 22px;
 }
 .card__face--back h1{
     margin-top: 15px;
@@ -60,15 +60,17 @@
     margin: 0;
     margin-top: 8px;
     font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
 }
 .card h2 span{
     font-size: 16px;
-    font-family: "Lucida Console", "Courier New", monospace;
+    font-family: 'Montserrat', sans-serif;
 }
 .card h3{
-    font-family: "Lucida Console", "Courier New", monospace;
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
     font-size: 28px;
+    font-weight: 500;
 }
 
 .card h4{

@@ -176,6 +176,7 @@ function PokemonList(props) {
                     <div className='pokemon-img'>
                         <LazyLoadImage
                             height={"110px"}
+                            width={"180px"}
                             effect="blur"
                             alt={`Picture of ${pokeData.name}`}
                             src={pokeData.sprites.other.dream_world.front_default != null ? pokeData.sprites.other.dream_world.front_default : pokeData.sprites.other["official-artwork"].front_default} // use normal <img> attributes as props
