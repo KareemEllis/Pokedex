@@ -11,7 +11,7 @@
 }
 
 ::selection{
-
+    
 }
 
 @font-face {
@@ -20,7 +20,7 @@
 }
 body {
     background-color: var(--c-primary);
-    background-image: url("images/4.jpg");
+    background-image: url("images/bg.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

@@ -8,6 +8,7 @@ function PokemonList(props) {
   const [pokemon, setPokemon] = useState([])
   const [currentFlipped, setCurrentFlipped] = useState()
   const [numLoaded, setNumLoading] = useState(0)
+  const [filteredCards, setFilteredCards] = useState([])
 
   function changeFlipped(name){
     setCurrentFlipped(name)
@@ -18,25 +19,25 @@ function PokemonList(props) {
       return 'limit=151'
     }
     else if(props.currentRegion === 'Johto'){
-      return 'limit=200'
+      return 'limit=100&offset=151'
     }
     else if(props.currentRegion === 'Hoenn'){
-
+      return 'limit=135&offset=251'
     }
     else if(props.currentRegion === 'Sinnoh'){
-
+      return 'limit=108&offset=386'
     }
     else if(props.currentRegion === 'Unova'){
-
+      return 'limit=155&offset=494'
     }
     else if(props.currentRegion === 'Kalos'){
-
+      return 'limit=72&offset=649'
     }
     else if(props.currentRegion === 'Alola'){
-
+      return 'limit=88&offset=721'
     }
     else if(props.currentRegion === 'Galar'){
-
+      return 'limit=89&offset=809'
     }
   }
 
@@ -49,6 +50,7 @@ function PokemonList(props) {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon?${getUrlFilters()}`)
     const data = await response.json()
     await setPokemon(data.results)
+    console.log("Total Number of Pokemon: " + data.results.length)
     
   }
 
@@ -57,6 +59,7 @@ function PokemonList(props) {
   }, [props.currentRegion])
 
   useEffect(() => {
+    console.log("Num Loaded: " + numLoaded)
     if(pokemon.length != 0 && numLoaded >= pokemon.length){
       props.changeLoadState(false)
     }
@@ -66,10 +69,22 @@ function PokemonList(props) {
     return <Card key={poke.name} id={poke.name} url={poke.url} flippedCard={currentFlipped} handleFlip={changeFlipped} incrementLoadCount={increaseNumLoaded} loading={props.loading}/>
   })
 
+  //Checking for the search input
+  useEffect(() => {
+    let foundCards = []
+    pokemonCards.forEach(card => {
+      if(card.props.id.startsWith(props.currentSearch)){
+        foundCards.push(card)
+      }
+    });
+    setFilteredCards(foundCards)
+    //card.props.id
+  }, [props.currentSearch])
+
   return (
     <div className='PokemonList container'>
       {props.loading ? <LoadingScreen /> : ""}
-      {pokemonCards}
+      {props.currentSearch == "" ? pokemonCards : filteredCards}
     </div>
   );
 }

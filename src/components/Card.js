@@ -4,19 +4,60 @@ import './Card.css'
 
 function PokemonList(props) {
     const [pokeData, setPokeData] = useState({
-        id: "",
-        name: "",
-        sprites: {
-            other: {
-                dream_world: {
-                    front_default: ""
+        "id": "",
+        "name": "",
+        "sprites": {
+            "other": {
+                "dream_world": {
+                    "front_default": ""
+                },
+                "official-artwork": {
+                    "front-default": ""
                 }
             }
         },
-        abilities: [
+        "abilities": [
             {
-                ability: {
-                    name: ""
+                "ability": {
+                    "name": ""
+                }
+            }
+        ],
+        "stats": [
+            {
+                "base_stat": 0,
+                "stat": {
+                    "name": "hp"
+                }
+            },
+            {
+                "base_stat": 0,
+                "stat": {
+                    "name": "attack"
+                }
+            },
+            {
+                "base_stat": 0,
+                "stat": {
+                    "name": "defense"
+                }
+            },
+            {
+                "base_stat": 0,
+                "stat": {
+                    "name": "special-attack"
+                }
+            },
+            {
+                "base_stat": 0,
+                "stat": {
+                    "name": "special-defense"
+                }
+            },
+            {
+                "base_stat": 0,
+                "stat": {
+                    "name": "speed"
                 }
             }
         ]
@@ -26,23 +67,23 @@ function PokemonList(props) {
     const [bgColors, setBgColors] = useState(['grey', 'grey'])
     const typeColors = {
         bug: "#d9e290",
-        dark: "#A29288",
-        dragon: "#b392ff",
-        electric: "#ffeda4", 
+        dark: "#7d7d7d", //DONE
+        dragon: "#7c92ff", //DONE
+        electric: "#ffe168", //DONE
         fairy: "#F4BDC9",
-        fighting: "#ff9f9a", 
-        fire: "#ffc195", 
+        fighting: "#ff837d", //DONE
+        fire: "#ffc765", //DONE
         flying: "#dacdff",
         ghost: "#A292BC",
-        grass: "#c0ffa1", 
-        ground: "#ffe499", 
-        ice: "#a5ffff", 
-        normal: "#bfbfbf", 
+        grass: "#5fff82", //DONE
+        ground: "#ffb657", 
+        ice: "#85ffff", //DONE
+        normal: "#cfcfcf", //DONE
         poison: "#ff98ff", 
-        psychic: "#ffabc4",
+        psychic: "#ffabc4", //DONE
         rock: "#e0d294",
         steel: "#D1D1E0",
-        water: "#8bc7ff"
+        water: "#78a7ff" //DONE
     }
 
     //Function to import images from a directory
@@ -75,7 +116,12 @@ function PokemonList(props) {
                 }
 
                 const pokemonTypeStyle = {filter: `drop-shadow(0px 0px 8px ${typeColors[item.type.name]})`}
-                icons.push(<img key={item.type.name} src={images[`type_${item.type.name}.png`]} alt={`Icon for ${item.type.name} type`} style={pokemonTypeStyle} />)
+                icons.push(
+                    <div className='tooltip' key={item.type.name}>
+                        <img  src={images[`type_${item.type.name}.png`]} alt={`Icon for ${item.type.name} type`} style={pokemonTypeStyle} />
+                        <span className='tooltiptext'>{item.type.name}</span>
+                    </div>
+                )
             });
             setTypeIcons(icons)
             setBgColors(colors)
@@ -92,9 +138,19 @@ function PokemonList(props) {
 
     useEffect(() => {
         const image = new Image();
-        image.src = pokeData.sprites.other.dream_world.front_default;
+        
+        let source = "" 
+
+        if(pokeData.sprites.other.dream_world.front_default != null){
+            source = pokeData.sprites.other.dream_world.front_default;
+        }
+        else{
+            source = pokeData.sprites.other["official-artwork"].front_default
+        }
+        image.src = source
+        
         image.onload = () => handleLoad()
-      }, [pokeData.sprites.other.dream_world.front_default]);
+    }, [pokeData.sprites.other.dream_world.front_default]);
 
     useEffect(() => {
         getPokemonData()
@@ -121,25 +177,37 @@ function PokemonList(props) {
         <div className="scene scene--card" onClick={() => flip()}>
             {!props.loading ? 
             (<div className={`card ${props.id === props.flippedCard ? 'is-flipped' : ''}`} >
+
                 <div className="card__face card__face--front" style={backgroundStyles} >
                     <h3> #{pokeData.id}</h3>
-                    <img className='pokemon-img' src={pokeData.sprites.other.dream_world.front_default} alt={`Picture of ${pokeData.name}`} />
+                    <img 
+                        className='pokemon-img' 
+                        src={pokeData.sprites.other.dream_world.front_default != null ? pokeData.sprites.other.dream_world.front_default : pokeData.sprites.other["official-artwork"].front_default} 
+                        alt={`Picture of ${pokeData.name}`} 
+                    />
                     <h1>{pokeData.name}</h1>
                     <div className='types'>{typeIcons}</div>
                 </div>
+
+
                 <div className="card__face card__face--back" style={backgroundStyles} >
                     <h1>{pokeData.name}</h1>
-                    <h2>Abilities</h2>
+                    {/* <h2>Abilities</h2>
                     <ul>
                     {pokeData.abilities.map(item => {
                         return <li key={item.ability.name}>{item.ability.name}</li>
                     })}
-                    </ul>
-                    <h2>Height</h2>
-                    <p>{pokeData.height}</p>
-                    <h2>Weight</h2>
-                    <p>{pokeData.weight}</p>
+                    </ul> */}
+                    <h2>HP: <span>{pokeData.stats[0].base_stat}</span></h2> 
+                    <h2>Attack: <span>{pokeData.stats[1].base_stat}</span></h2> 
+                    <h2>Defense: <span>{pokeData.stats[2].base_stat}</span></h2> 
+                    <h2>Special Atk: <span>{pokeData.stats[3].base_stat}</span></h2> 
+                    <h2>Special Def: <span>{pokeData.stats[4].base_stat}</span></h2>
+                    <h2>Speed: <span>{pokeData.stats[5].base_stat}</span></h2>  
+                    <h2>Height: <span>{pokeData.height}</span></h2>
+                    <h2>Weight: <span>{pokeData.weight}</span></h2>
                 </div>
+
             </div>)
             : ""}
         </div>
