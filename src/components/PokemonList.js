@@ -5,12 +5,11 @@ import LoadingScreen from '../components/LoadingScreen';
 
 function PokemonList(props) {
     
-  const [pokemon, setPokemon] = useState([])
-  const [currentFlipped, setCurrentFlipped] = useState()
-  const [numLoaded, setNumLoading] = useState(0)
-  const [loadedImages, setLoadedImages] = useState([])
-  const [filteredCards, setFilteredCards] = useState([])
-  
+  const [pokemon, setPokemon] = useState([]) //All pokemon data
+  const [currentFlipped, setCurrentFlipped] = useState() //Currently flipped card. Used to ensure 2 cards aren't flipped at the same time
+  const [numLoaded, setNumLoading] = useState(0) //Number of pokemon instances that has loaded data
+  const [loadedImages, setLoadedImages] = useState([]) //List of pokemon images that have been loaded
+  const [filteredCards, setFilteredCards] = useState([]) //Pokemon cards found through search
 
   function changeFlipped(name){
     setCurrentFlipped(name)
@@ -46,28 +45,30 @@ function PokemonList(props) {
   function increaseNumLoaded(){
     setNumLoading(prev => prev + 1)
   }
+
+
   async function getData(){
     setNumLoading(0)
-    await props.changeLoadState(true)
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?${getUrlFilters()}`)
+    await props.changeLoadState(true) //Sets loading state to true
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?${getUrlFilters()}`) //Gets data from pokeapi
     const data = await response.json()
     await setPokemon(data.results)
-    console.log("Total Number of Pokemon: " + data.results.length)
-    
   }
 
+  //When the region for the pokemon has changed, gets data for pokemon in new region
   useEffect(() => {
     setLoadedImages([])
     setFilteredCards([])
     getData()
   }, [props.currentRegion])
 
+  //Checks if all pokemon have been loaded and changes load state
   useEffect(() => {
-    console.log("Num Loaded: " + numLoaded)
     if(pokemon.length != 0 && numLoaded >= pokemon.length){
       props.changeLoadState(false)
     }
   }, [numLoaded])
+
 
   const pokemonCards = pokemon.map(poke => {
     return <Card 
@@ -82,7 +83,7 @@ function PokemonList(props) {
     setLoadedImages={setLoadedImages}/>
   })
 
-  //Checking for the search input
+  //Filters the pokemon based on search input text
   useEffect(() => {
     let foundCards = []
     pokemonCards.forEach(card => {

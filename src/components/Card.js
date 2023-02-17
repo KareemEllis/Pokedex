@@ -5,6 +5,8 @@ import './Card.css'
 
 
 function PokemonList(props) {
+    
+    //Pokemon Data
     const [pokeData, setPokeData] = useState({
         "id": "",
         "name": "",
@@ -64,28 +66,30 @@ function PokemonList(props) {
             }
         ]
     })
-    // const [isImageLoading, setIsImageLoading] = useState(true)
+    //State for icons
     const [typeIcons, setTypeIcons] = useState([])
+    //State for card background colors
     const [bgColors, setBgColors] = useState(['#cfcfcf', '#cfcfcf'])
+    //Background colors to use for card based on pokemon type
     const typeColors = {
         bug: "#d9e290",
-        dark: "#7d7d7d", //DONE
-        dragon: "#7c92ff", //DONE
-        electric: "#ffe168", //DONE
+        dark: "#7d7d7d", 
+        dragon: "#7c92ff", 
+        electric: "#ffe168",
         fairy: "#F4BDC9",
-        fighting: "#ff837d", //DONE
-        fire: "#ffc765", //DONE
+        fighting: "#ff837d",
+        fire: "#ffc765",
         flying: "#dacdff",
         ghost: "#A292BC",
-        grass: "#5fff82", //DONE
+        grass: "#5fff82", 
         ground: "#ffb657", 
-        ice: "#85ffff", //DONE
-        normal: "#cfcfcf", //DONE
+        ice: "#85ffff", 
+        normal: "#cfcfcf",
         poison: "#ff98ff", 
-        psychic: "#ffabc4", //DONE
+        psychic: "#ffabc4",
         rock: "#e0d294",
         steel: "#D1D1E0",
-        water: "#78a7ff" //DONE
+        water: "#78a7ff"
     }
 
     //Function to import images from a directory
@@ -99,6 +103,8 @@ function PokemonList(props) {
     //EXAMPLE: <img src={images['doggy.png']} />
 
     //Fetches for Pokemon data and sets it to state
+    
+    
     async function getPokemonData() {
         try {
             const response = await fetch(props.url)
@@ -133,7 +139,7 @@ function PokemonList(props) {
         }
     }
 
-
+    //Checks if the data has been fetched and updates state props
     useEffect(() => {
         if(!props.loadedImages.includes(pokeData.name) && pokeData.name != ""){
             props.incrementLoadCount()
@@ -141,7 +147,7 @@ function PokemonList(props) {
         }
     }, [pokeData])
 
-
+    //Initial fetch for pokemon data
     useEffect(() => {
         getPokemonData()
     }, [])

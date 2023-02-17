@@ -4,20 +4,15 @@ import Controls from './components/Controls'
 import React, { useState } from "react";
 import PokemonList from './components/PokemonList';
 
-
-
 function App() {
   
-  //STATE FOR DARK MODE
-  const [region, setPokemonRegion] = useState('Kanto')
-  const [searchText, setSearchText] = useState("")
-
-  const [isLoading, setIsLoading] = useState(true)
+  const [region, setPokemonRegion] = useState('Kanto') //Pokemon region that is being viewed
+  const [searchText, setSearchText] = useState("") //Search input text
+  const [isLoading, setIsLoading] = useState(true) //Load state for pokemon data
 
   function changePokemonRegion(newRegion) {
     setSearchText("")
     setPokemonRegion(newRegion)
-    console.log(`New Region: ${newRegion}`)
   }
   function changeLoading(value){
     setIsLoading(value)
