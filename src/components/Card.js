@@ -185,6 +185,7 @@ function PokemonList(props) {
                     </div>
                     <h1>{pokeData.name}</h1>
                     <div className='types'>{typeIcons}</div>
+                    <p>Click to flip</p>
                 </div>
 
 

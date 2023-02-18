@@ -79,6 +79,8 @@
 }
 .card p{
     margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
 }
 .card ul{
     margin: 0;
