@@ -1,5 +1,5 @@
 import './PokemonList.css'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , forceUpdate} from 'react';
 import Card from './Card'
 import LoadingScreen from '../components/LoadingScreen';
 
@@ -83,17 +83,18 @@ function PokemonList(props) {
     setLoadedImages={setLoadedImages}/>
   })
 
+ 
   //Filters the pokemon based on search input text
   useEffect(() => {
     let foundCards = []
-    pokemonCards.forEach(card => {
+    foundCards = pokemonCards.map(card => {
       if(card.props.id.startsWith(props.currentSearch)){
-        foundCards.push(card)
+        return card
       }
     });
     setFilteredCards(foundCards)
     //card.props.id
-  }, [props.currentSearch])
+  }, [props.currentSearch, currentFlipped])
 
   return (
     <div className='PokemonList container'>

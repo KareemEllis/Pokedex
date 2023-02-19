@@ -91,6 +91,7 @@ function PokemonList(props) {
         steel: "#D1D1E0",
         water: "#78a7ff"
     }
+    
 
     //Function to import images from a directory
     function importAll(r) {
