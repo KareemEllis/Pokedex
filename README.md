@@ -12,7 +12,7 @@ This project was built with ReactJS, PokéAPI and LottieFiles. It includes the f
 - Basic Details of Pokemon
 - Search name
 - Filter region
-- Responsivefive
+- Responsive
 - Lazy Loading
 
 ## Demo
