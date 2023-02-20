@@ -16,7 +16,7 @@ function Header(props) {
         <a href='https://www.linkedin.com/in/kareem-ellis-1b14a318b/' target='_blank' rel="noreferrer">
             <img src={logo_linkedin} alt='LinkedIn Logo'/>
         </a>
-        <a href='https://github.com/KareemEllis' target='_blank' rel="noreferrer">
+        <a href='https://github.com/KareemEllis/Pokedex' target='_blank' rel="noreferrer">
             <img src={logo_github} alt='Github Logo'/>
         </a>
       </div>
